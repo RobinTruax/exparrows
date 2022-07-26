@@ -1,0 +1,59 @@
+% Initialization
+\ProvidesPackage{exparrows}[Robin's Expositionary Arrow Package]
+% Credit: this is adapted from Sibin Mohan's work, available here: https://twitter.com/sibinmohan/status/1480583840858996743?lang=en.
+
+% Necessary Packages
+\PassOptionsToPackage{usenames,dvipsnames,svgnames}{xcolor}
+\usepackage{xstring}
+\usepackage{xkcdcolors}
+\usepackage{tikz}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows,shapes,tikzmark,calc,positioning,shadows,trees,mindmap}
+
+% Macros
+\newcommand{\highlight}[2]{\colorbox{#2!17}{#1}}
+\newcommand{\node}[3]{\tikzmarknode{#1}{\highlight{#2}{#3}}}
+\newcommand{\spacing}{\vspace{2.5\baselineskip}}
+% One will also use \vphantom{} to align nodes if they are right next to one another.
+
+% Expositionary arrow 
+\newcommand{\exparrow}[4]{
+    \IfEqCase{#4}{
+        {ul}{
+            \begin{tikzpicture}[overlay,remember picture,>=stealth,nodes={align=left,inner ysep=1pt},<-]
+                \path (#1.north) ++ (0,2em) node[anchor=south east,color=#3!67] (scalep){#2}; \draw [color=#3!87](#1.north) |- ([xshift=-0.3ex,color=#3]scalep.south west);
+            \end{tikzpicture}
+            } % Arrow up and to the left
+        {ur}{
+            \begin{tikzpicture}[overlay,remember picture,>=stealth,nodes={align=left,inner ysep=1pt},<-]
+                \path (#1.north) ++ (0,2em) node[anchor=south west,color=#3!67] (scalep){#2}; \draw [color=#3!87](#1.north) |- ([xshift=-0.3ex,color=#3]scalep.south east);
+            \end{tikzpicture}
+            } % Arrow up and to the right
+        {dl}{
+            \begin{tikzpicture}[overlay,remember picture,>=stealth,nodes={align=left,inner ysep=1pt},<-]
+                \path (#1.south) ++ (0,-1.5em) node[anchor=north east,color=#3!67] (scalep){#2}; \draw [color=#3!87](#1.south) |- ([xshift=-0.3ex,color=#3]scalep.south west);
+            \end{tikzpicture}
+            } % Arrow down and to the left
+        {dr}{
+            \begin{tikzpicture}[overlay,remember picture,>=stealth,nodes={align=left,inner ysep=1pt},<-]
+                \path (#1.south) ++ (0,-1.5em) node[anchor=north west,color=#3!67] (scalep){#2}; \draw [color=#3!87](#1.south) |- ([xshift=-0.3ex,color=#3]scalep.south east);
+            \end{tikzpicture}
+            } % Arrow down and to the right
+    }[\PackageError{exparrow}{Undefined option to exparrow: #4}{}] % Option does not exist
+}
+
+% Dual expositionary arrow
+\newcommand{\dualexparrow}[5]{
+    \IfEqCase{#5}{
+        {u}{
+            \begin{tikzpicture}[overlay,remember picture,>=stealth,nodes={align=left,inner ysep=1pt},<-]
+                \path (#1.north) ++ (-1.5em,2em) node[anchor=south west,color=#4!67] (scalep){#3}; \draw[<->,color=#4!57] (#1.north) -- ++(0,0.67)  -| node[] {} (#2.north);
+            \end{tikzpicture}
+            } % Upwards expositionary arrow
+        {d}{
+            \begin{tikzpicture}[overlay,remember picture,>=stealth,nodes={align=left,inner ysep=1pt},<-]
+                \path (#1.south) ++ (3em,-3.3em) node[anchor=south west,color=#4!67] (scalep){#3}; \draw[<->,color=#4!57] (#1.south) -- ++(0,-0.67)  -| node[] {} (#2.south);
+            \end{tikzpicture}
+            } % Downwards expositionary arrow
+    }[\PackageError{exparrow}{Undefined option to exparrow: #5}{}] % Option does not exist
+}
