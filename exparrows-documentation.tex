@@ -36,15 +36,15 @@ In this document, I'm going to show you how to turn long, hard-to-read equations
     \phi_k(c,d) = \exists c_{\text{mid}} \forall x_1,x_2 ((x_1,x_2) = (c,c_{\text{mid}}) \lor (x_1,x_2) = (c_{\text{mid}},d)) \Rightarrow \phi_{k-1}(x_1,x_2)].
 \end{equation*}
 into long, easy-to-read equations like this
-\spacing
+\expspacing
 \begin{equation*}
-    \node{formula1}{$\phi_k(c,d)$}{ForestGreen} = \node{formula2}{$\exists c_{\text{mid}}$}{blue} \forall x_1,x_2 [\node{formula3}{$((x_1,x_2) = (c,c_{\text{mid}})$}{red} \lor \node{formula4}{$(x_1,x_2) = (c_{\text{mid}},d))$}{red} \Rightarrow \node{formula5}{$\phi_{k-1}(x_1,x_2)$}{red}]
+    \expnode{formula1}{$\phi_k(c,d)$}{ForestGreen} = \expnode{formula2}{$\exists c_{\text{mid}}$}{blue} \forall x_1,x_2 [\expnode{formula3}{$((x_1,x_2) = (c,c_{\text{mid}})$}{red} \lor \expnode{formula4}{$(x_1,x_2) = (c_{\text{mid}},d))$}{red} \Rightarrow \expnode{formula5}{$\phi_{k-1}(x_1,x_2)$}{red}]
 \end{equation*}
 \exparrow{formula1}{(1) $c \to d$ takes $\leq 2^k$ steps iff}{ForestGreen}{dr}
 \exparrow{formula2}{(2) there exists a midpoint $c_{\text{mid}}$ s.t.}{blue}{ur}
-\dualexparrow{formula3}{formula5}{(3) $c \to c_{\text{mid}}$ takes $\leq 2^{k-1}$ steps and}{red}{d}
-\dualexparrow{formula4}{formula5}{(4) $c_{\text{mid}} \to d$ takes $\leq 2^{k-1}$ steps.}{red}{u}
-\spacing
+\exparrowdual{formula3}{formula5}{(3) $c \to c_{\text{mid}}$ takes $\leq 2^{k-1}$ steps and}{red}{d}
+\exparrowdual{formula4}{formula5}{(4) $c_{\text{mid}} \to d$ takes $\leq 2^{k-1}$ steps.}{red}{u}
+\expspacing
 
 without using an exorbitant amount of code.\\
 
@@ -56,15 +56,15 @@ Indeed, the former equation requires the following \LaTeX
 \end{lstlisting}
 whereas the second equation requires the following \LaTeX: 
 \begin{lstlisting}[language=TeX, caption=\LaTeX \,\! for Equation With Annotation]
-\spacing
+\expspacing
 \begin{equation*}
-    \node{formula1}{$\phi_k(c,d)$}{ForestGreen} = \node{formula2}{$\exists c_{\text{mid}}$}{blue} \forall x_1,x_2 [\node{formula3}{$((x_1,x_2) = (c,c_{\text{mid}})$}{red} \lor \node{formula4}{$(x_1,x_2) = (c_{\text{mid}},d))$}{red} \Rightarrow \node{formula5}{$\phi_{k-1}(x_1,x_2)$}{red}].
+    \expnode{formula1}{$\phi_k(c,d)$}{ForestGreen} = \expnode{formula2}{$\exists c_{\text{mid}}$}{blue} \forall x_1,x_2 [\expnode{formula3}{$((x_1,x_2) = (c,c_{\text{mid}})$}{red} \lor \expnode{formula4}{$(x_1,x_2) = (c_{\text{mid}},d))$}{red} \Rightarrow \expnode{formula5}{$\phi_{k-1}(x_1,x_2)$}{red}].
 \end{equation*}
 \exparrow{formula1}{(1) $c \to d$ takes $\leq 2^k$ steps iff}{ForestGreen}{dr}
 \exparrow{formula2}{(2) there exists a midpoint $c_{\text{mid}}$ s.t.}{blue}{ur}
-\dualexparrow{formula3}{formula5}{(3) $c \to c_{\text{mid}}$ takes $\leq 2^{k-1}$ steps and}{red}{d}
-\dualexparrow{formula4}{formula5}{(4) $c_{\text{mid}} \to d$ takes $\leq 2^{k-1}$ steps.}{red}{u}
-\spacing
+\exparrowdual{formula3}{formula5}{(3) $c \to c_{\text{mid}}$ takes $\leq 2^{k-1}$ steps and}{red}{d}
+\exparrowdual{formula4}{formula5}{(4) $c_{\text{mid}} \to d$ takes $\leq 2^{k-1}$ steps.}{red}{u}
+\expspacing
 \end{lstlisting}
 Yes, there is substantially more code in the second listing, but given that the example contains six highlighted sections, six arrows, four labels with lines to carry them, all across three different colors, the alternative (defining all of it manually in TikZ) would be prohibitively difficult for most users. Furthermore, moving around the arrows or editing the contents of the equation or the labels is much easier using this package. \newpage
 
@@ -72,72 +72,72 @@ Yes, there is substantially more code in the second listing, but given that the 
 
 This package consists of the following commmands: 
 \begin{center}
-    \ttt{\tbs highlight} \qquad \ttt{\tbs node}  \qquad \ttt{\tbs exparrow}  \qquad \ttt{\tbs dualexparrow} \qquad \ttt{\tbs spacing}
+    \ttt{\tbs highlight} \qquad \ttt{\tbs expnode}  \qquad \ttt{\tbs exparrow}  \qquad \ttt{\tbs exparrowdual} \qquad \ttt{\tbs expspacing}
 \end{center}
 The first of these, \ttt{\tbs highlight}, is the simplest. This command colors the background behind any text. For example, \ttt{\tbs highlight\{hello\}\{red\}} produces \highlight{hello}{red}. The colors are automatically loaded by the \ttt{exparrows} package, which loads \ttt{xcolors} (both the default colors and the additional colors provided by the options \ttt{usenames}, \ttt{dvipsnames}, and \ttt{svgnames}). Formally, the syntax for the \ttt{highlight} command is as follows: 
 \begin{center}
-    \ttt{\tbs highlight}\{\node{11}{text}{red}\}\{\node{12}{color}{blue}\}
+    \ttt{\tbs highlight}\{\expnode{11}{text}{red}\}\{\expnode{12}{color}{blue}\}
 \end{center}
 \exparrow{11}{input (in text mode) to be highlighted}{red}{dl}
 \exparrow{12}{any color defined in \ttt{xcolors}}{blue}{dr}
-\spacing
+\expspacing
 
-The next of these, \ttt{\tbs node}, is used to ``lock on" arrows. The \ttt{node} command is essentially the same as the \ttt{highlight} command, except that it has an additional input for the \textit{name} of the node (which can later be referenced in an \ttt{\tbs exparrow} or \ttt{\tbs dualexparrow} command). For example, to highlight the text in the above explanation of \ttt{highlight}, instead of using \ttt{\tbs highlight}, I used the code \ttt{\tbs node\{11\}\{text\}\{red\}} and \ttt{\tbs node\{12\}\{color\}\{blue\}}, respectively. Formally, the syntax for the \ttt{node} command is as follows: 
+The next of these, \ttt{\tbs expnode}, is used to ``lock on" arrows. The \ttt{expnode} command is essentially the same as the \ttt{highlight} command, except that it has an additional input for the \textit{name} of the expnode (which can later be referenced in an \ttt{\tbs exparrow} or \ttt{\tbs exparrowdual} command). For example, to highlight the text in the above explanation of \ttt{highlight}, instead of using \ttt{\tbs highlight}, I used the code \ttt{\tbs expnode\{11\}\{text\}\{red\}} and \ttt{\tbs expnode\{12\}\{color\}\{blue\}}, respectively. Formally, the syntax for the \ttt{expnode} command is as follows: 
 
-\spacing
+\expspacing
 \begin{center}
-    \ttt{\tbs node}\{\node{23}{label}{ForestGreen}\}\{\node{21}{text}{red}\}\{\node{22}{color}{blue}\}
+    \ttt{\tbs expnode}\{\expnode{23}{label}{ForestGreen}\}\{\expnode{21}{text}{red}\}\{\expnode{22}{color}{blue}\}
 \end{center}
 \exparrow{21}{input (in text mode) to be highlighted}{red}{dl}
 \exparrow{22}{any color defined in \ttt{xcolors}}{blue}{dr}
 \exparrow{23}{label of the node (alphanumeric string)}{ForestGreen}{ur}
-\spacing
+\expspacing
 
 Now, the eponymous command of the package, \ttt{\tbs exparrow}, is used to produce the arrows that we have been scattering throughout the document. The syntax for the \ttt{exparrow} command is as follows: 
 
-\spacing
+\expspacing
 \begin{center}
-    \ttt{\tbs exparrow}\{\node{31}{label}{ForestGreen}\}\{\node{32}{text}{red}\}\{\node{33}{color}{blue}\}\{\node{34}{direction}{orange}\}
+    \ttt{\tbs exparrow}\{\expnode{31}{label}{ForestGreen}\}\{\expnode{32}{text}{red}\}\{\expnode{33}{color}{blue}\}\{\expnode{34}{direction}{orange}\}
 \end{center}
 \exparrow{31}{label of the node to point to}{ForestGreen}{ul}
 \exparrow{32}{label of the arrow}{red}{dl}
 \exparrow{33}{any color defined in \ttt{xcolors}}{blue}{dr}
 \exparrow{34}{direction of the arrow: \ttt{ul}, \ttt{ur}, \ttt{dl}, or \ttt{dr}}{orange}{ur}
-\spacing
+\expspacing
 
 To elaborate on the final parameter, an arrow marked with \ttt{ul} will travel up-and-to-the-left. Analogously, arrows marked with \ttt{ur}, \ttt{dl}, and \ttt{dr} travel up-and-to-the-right, down-and-to-the-left, and down-and-to-the-right respectively. For example, to produce the red arrow above, I first produced a node with \ttt{\tbs node\{32\}\{text\}\{red\}}, and then I pointed to it with \ttt{\tbs exparrow\{32\}\{label of the arrow\}\{red\}\{dl\}}.\\
 
-Now, sometimes one would like to mark more than one node with the same arrow. For this, the command \ttt{\tbs dualexparrow} is used. The syntax for this arrow is extremely similar: 
+Now, sometimes one would like to mark more than one node with the same arrow. For this, the command \ttt{\tbs exparrowdual} is used. The syntax for this arrow is extremely similar: 
 
-\spacing
+\expspacing
 \begin{center}
-    \ttt{\tbs dualexparrow}\{\node{41}{label1}{ForestGreen}\}\{\node{42}{label2}{ForestGreen}\}\{\node{43}{text}{red}\}\{\node{44}{color}{blue}\}\{\node{45}{direction}{orange}\}
+    \ttt{\tbs exparrowdual}\{\expnode{41}{label1}{ForestGreen}\}\{\expnode{42}{label2}{ForestGreen}\}\{\expnode{43}{text}{red}\}\{\expnode{44}{color}{blue}\}\{\expnode{45}{direction}{orange}\}
 \end{center}
-\dualexparrow{41}{42}{label of the node to point to}{ForestGreen}{u}
+\exparrowdual{41}{42}{label of the node to point to}{ForestGreen}{u}
 \exparrow{43}{label of the arrow}{red}{dl}
 \exparrow{44}{any color defined in \ttt{xcolors}}{blue}{dr}
 \exparrow{45}{direction of the arrow: \ttt{u} or \ttt{d}}{orange}{ur}
-\spacing
+\expspacing
 
-The only real difference, besides that two labels are used, is that there are now only two options for direction: \ttt{u} for ``up" and \ttt{d} for ``down". For example, to produce the dual green arrow above, I first produced two nodes with \ttt{\tbs node\{41\}\{label1\}\{ForestGreen\}} and \ttt{\tbs node\{42\}\{label1\}\{ForestGreen\}}, and then pointed to them with \ttt{\tbs dualexparrow\{41\}\{42\}\{label of the node to point to\}\{ForestGreen\}\{u\}}.\\
+The only real difference, besides that two labels are used, is that there are now only two options for direction: \ttt{u} for ``up" and \ttt{d} for ``down". For example, to produce the dual green arrow above, I first produced two nodes with \ttt{\tbs expnode\{41\}\{label1\}\{ForestGreen\}} and \ttt{\tbs expnode\{42\}\{label1\}\{ForestGreen\}}, and then pointed to them with \ttt{\tbs exparrowdual\{41\}\{42\}\{label of the expnode to point to\}\{ForestGreen\}\{u\}}.\\
 
-Now, the final command is the \ttt{\tbs spacing} command, which has no options. After all of the expositionary arrows have been defined, the user \textit{must} use the \ttt{\tbs spacing} command either above the block of equations/arrows (if any arrows pointing up have been defined) or below the block of equations/arrows (if any arrows pointing down have been defined), or both. This command will automatically add spacing necessary to avoid overlap between following text and the equation. The only caveat is that the user must place a newline between the command and any preceding or following paragraphs to ensure that the spacing works. The confused reader is invited to look at the source for this documentation, which contains ample complete examples and is included with this PDF.\\
+Now, the final command is the \ttt{\tbs expspacing} command, which has no options. After all of the expositionary arrows have been defined, the user \textit{must} use the \ttt{\tbs expspacing} command either above the block of equations/arrows (if any arrows pointing up have been defined) or below the block of equations/arrows (if any arrows pointing down have been defined), or both. This command will automatically add spacing necessary to avoid overlap between following text and the equation. The only caveat is that the user must place a newline between the command and any preceding or following paragraphs to ensure that the spacing works. The confused reader is invited to look at the source for this documentation, which contains ample complete examples and is included with this PDF.\\
 
 Lastly, a command which I recommend using when helpful is the \texttt{\tbs vphantom} command. This command produces a zero-width vertical box the height of its argument, and can be used to ensure that nodes have the same height. Consider, for example, the following examples: 
 \begin{equation*}
-    \node{vp1}{\texttt{exp}}{ForestGreen}\node{vp2}{\texttt{arrows}}{red} \qquad \node{vp3}{\texttt{exp}}{ForestGreen}\node{vp4}{\texttt{arrows\vphantom{exp}}}{red}
+    \expnode{vp1}{\texttt{exp}}{ForestGreen}\expnode{vp2}{\texttt{arrows}}{red} \qquad \expnode{vp3}{\texttt{exp}}{ForestGreen}\expnode{vp4}{\texttt{arrows\vphantom{exp}}}{red}
 \end{equation*}
 The former example is produced using the code 
 \begin{center}
-    \ttt{\tbs node\{vp1\}\{\tbs texttt\{exp\}\}\{ForestGreen\}} and \ttt{\tbs node\{vp2\}\{\tbs texttt\{arrows\}\}\{red\}}
+    \ttt{\tbs expnode\{vp1\}\{\tbs texttt\{exp\}\}\{ForestGreen\}} and \ttt{\tbs expnode\{vp2\}\{\tbs texttt\{arrows\}\}\{red\}}
 \end{center}
 whereas the latter is produced using the code 
 \begin{center}
-    \ttt{\tbs node\{vp3\}\{\tbs texttt\{exp\}\}\{ForestGreen\}} and \ttt{\tbs node\{vp4\}\{\tbs texttt\{arrows\tbs vphantom\{exp\}\}\}\{red\}}.
+    \ttt{\tbs expnode\{vp3\}\{\tbs texttt\{exp\}\}\{ForestGreen\}} and \ttt{\tbs expnode\{vp4\}\{\tbs texttt\{arrows\tbs vphantom\{exp\}\}\}\{red\}}.
 \end{center}
 
 
 \section{Final Notes}
-This project is an adaptation of the examples shown by \href{https://twitter.com/sibinmohan/status/1480583840858996743}{Sibin Mohan on his Twitter here}. The tweet also contains a link to his Github, from which this package was adapted. This package does have its flaws: the necessity of the \ttt{\tbs spacing} command, for one, and strange behavior when the arrows overlap with page borders, for another. Nonetheless, it has proved to be a helpful tool for writing readable math papers in \LaTeX and making complex equations more accessible, and I hope that it is helpful for you too.
+This project is an adaptation of the examples shown by \href{https://twitter.com/sibinmohan/status/1480583840858996743}{Sibin Mohan on his Twitter here}. The tweet also contains a link to his Github, from which this package was adapted. This package does have its flaws: the necessity of the \ttt{\tbs expspacing} command, for one, and strange behavior when the arrows overlap with page borders, for another. Nonetheless, it has proved to be a helpful tool for writing readable math papers in \LaTeX and making complex equations more accessible, and I hope that it is helpful for you too.
 
 \end{document}
