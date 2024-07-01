@@ -128,6 +128,14 @@
                 \draw [color=#3!87](#1.south) |- ([yshift=0.2ex,color=#3]scalep.north);
             \end{tikzpicture}
         }
+        {l}{ % Arrow left
+            \begin{tikzpicture}[overlay,remember picture,>=stealth,nodes={align=left,inner xsep=1pt},<-]
+                % Text
+                \path (#1.east) ++ (2.2em,0) node[anchor=west,color=#3!67] (scalep){#2};
+                % Arrow
+                \draw [color=#3!87](#1.east) |- ([xshift=0.2ex,color=#3]scalep.west);
+            \end{tikzpicture}
+        }
     }[\PackageError{exparrow}{Undefined option to exparrow: #4}{}] % Throw error if option does not exist
 }
 
