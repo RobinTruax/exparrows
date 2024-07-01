@@ -1,0 +1,1 @@
+This is the exparrows LaTeX package, adapted from examples by [Sibin Mohan on Twitter](https://twitter.com/sibinmohan/status/1480583840858996743). Please see exparrows-documentation.pdf for examples and details.
